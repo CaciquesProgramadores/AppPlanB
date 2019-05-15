@@ -14,27 +14,35 @@ module LastWillFile
           view :login
         end
 
-        # POST /auth/login
-        routing.post do
-          account = AuthenticateAccount.new(App.config).call(
-            username: routing.params['username'],
-            password: routing.params['password'])
+       # POST /auth/login
+       routing.post do
+        account = AuthenticateAccount.new(App.config).call(
+          username: routing.params['username'],
+          password: routing.params['password']
+        )
 
-          session[:current_account] = account
-          flash[:notice] = "Welcome back #{account['username']}!"
-          routing.redirect '/'
-        rescue StandardError
-          flash[:error] = 'Username and password did not match our records'
-          routing.redirect @login_route
-        end
+        SecureSession.new(session).set(:current_account, account)
+        flash[:notice] = "Welcome back #{account['username']}!"
+        routing.redirect '/'
+      rescue AuthenticateAccount::UnauthorizedError
+        flash[:error] = 'Username and password did not match our records'
+        response.status = 403
+        routing.redirect @login_route
+      rescue StandardError => e
+        puts "LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
+        flash[:error] = 'Our servers are not responding -- please try later'
+        response.status = 500
+        routing.redirect @login_route
       end
+    end
 
-      routing.on 'logout' do
-        routing.get do
-          session[:current_account] = nil
-          routing.redirect @login_route
-        end
+    @logout_route = '/auth/logout'
+    routing.is 'logout' do
+      routing.get do
+        SecureSession.new(session).delete(:current_account)
+        routing.redirect @login_route
       end
+    end
     end
   end
 end
