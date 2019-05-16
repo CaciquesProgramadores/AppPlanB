@@ -21,7 +21,7 @@ module LastWillFile
           password: routing.params['password']
         )
 
-        session[:current_account] = account
+        SecureSession.new(session).set(:current_account, account)
         flash[:notice] = "Welcome back #{account['username']}!"
         routing.redirect '/'
       rescue AuthenticateAccount::UnauthorizedError

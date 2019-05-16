@@ -12,15 +12,8 @@ module LastWillFile
     plugin :multi_route
     plugin :flash
 
-    ONE_MONTH1 = 30 * 24 * 60 * 60
-
-    use Rack::Session::Cookie,
-        expire_after: ONE_MONTH1,
-        secret: config.SESSION_SECRET
-
     route do |routing|
-      @current_account = session[:current_account]
-      #@current_account = SecureSession.new(session).get(:current_account)
+      @current_account = SecureSession.new(session).get(:current_account)
 
       routing.public
       routing.assets
