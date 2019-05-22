@@ -3,8 +3,8 @@
 require 'http'
 
 module LastWillFile
-  # Returns an authenticated user, or nil
-  class AuthenticateAccount
+   # Returns an authenticated user, or nil
+   class AuthenticateAccount
     class UnauthorizedError < StandardError; end
 
     def initialize(config)
@@ -18,7 +18,10 @@ module LastWillFile
       raise(UnauthorizedError) if response.code == 403
       raise if response.code != 200
 
+      account_info = response.parse['attributes']
+
       response.parse['attributes']
+
     end
   end
 end
