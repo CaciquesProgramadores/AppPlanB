@@ -20,7 +20,7 @@ class RegistrationToken
   class InvalidTokenError < StandardError; end
 
   # Create a token from a Hash payload
-  def self.create(payload, expiration = ONE_DAY)
+  def self.create(payload, expiration = THREE_MINUTES)
     contents = { 'payload' => payload, 'exp' => expires(expiration) }
     tokenize(contents)
   end
