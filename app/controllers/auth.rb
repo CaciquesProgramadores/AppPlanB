@@ -80,7 +80,7 @@ module LastWillFile
 
 
         #new_account = SecureMessage.decrypt(registration_token)
-        new_account = RegistrationToken.detokenize(registration_token)
+        new_account = RegistrationToken.payload(registration_token)
         view :register_confirm,
              locals: { new_account: new_account,
                        registration_token: registration_token }
