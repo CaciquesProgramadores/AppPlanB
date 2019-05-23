@@ -68,7 +68,7 @@ module LastWillFile
           routing.redirect '/'
         rescue StandardError => e
           puts "ERROR VERIFYING REGISTRAATION: #{e.inspect}"
-          puts e.backtrace
+          # puts e.backtrace
           flash[:error] = 'Registration details are not valid'
           routing.redirect @register_route
         end
