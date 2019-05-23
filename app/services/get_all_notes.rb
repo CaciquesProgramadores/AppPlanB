@@ -7,7 +7,7 @@ module LastWillFile
   # Returns all notes belonging to an account
   class GetAllNotes
     def initialize(config)
-    @config = config
+      @config = config
     end
 
     def call(current_account)
