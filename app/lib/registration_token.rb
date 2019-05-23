@@ -8,8 +8,9 @@ require_relative 'secure_message'
 #  token = AuthToken.create({ key: 'value', key2: 12 }, AuthToken::ONE_MONTH)
 #  AuthToken.payload(token)   # => {"key"=>"value", "key2"=>12}
 class RegistrationToken
-
-  ONE_HOUR = 60 * 60
+  ONE_MINUTE = 60
+  THREE_MINUTES = ONE_MINUTE * 3
+  ONE_HOUR = ONE_MINUTE * 60
   ONE_DAY = ONE_HOUR * 24
   ONE_WEEK = ONE_DAY * 7
   ONE_MONTH = ONE_WEEK * 4
