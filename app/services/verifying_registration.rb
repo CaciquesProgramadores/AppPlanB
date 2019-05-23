@@ -12,8 +12,8 @@ module LastWillFile
     end
 
     def call(registration_data)
-      #registration_token = SecureMessage.encrypt(registration_data)
-      registration_token = RegistrationToken.tokenize(registration_data)
+      registration_token = SecureMessage.encrypt(registration_data)
+      # registration_token = RegistrationToken.tokenize(registration_data)
       registration_data['verification_url'] =
         "#{@config.APP_URL}/auth/register/#{registration_token}"
 
