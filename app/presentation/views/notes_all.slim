@@ -1,0 +1,17 @@
+
+div class="row" style="vertical-align: bottom;"
+div class="col-xs-9"
+h3 All Notes
+div class="col-xs-3"
+table class="table"
+thead
+tr
+  th Note name
+  th Repo URL
+tbody
+- notes.all.each do |proj|
+  tr
+    td
+    a href="/account/notes/#{proj.id}" #{proj.name}
+        td
+          a href="#{proj.repo_url}" #{proj.repo_url}
