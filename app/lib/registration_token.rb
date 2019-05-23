@@ -28,7 +28,7 @@ class RegistrationToken
   # Extract data from token
   def self.payload(token)
     contents = detokenize(token)
-    expired?(contents) ? raise(ExpiredTokenError) : contents['payload']
+    contents['payload']
   end
 
   # Tokenize contents or return nil if no data
