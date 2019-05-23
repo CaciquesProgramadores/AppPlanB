@@ -52,8 +52,8 @@ class RegistrationToken
   end
 
   def self.expired?(contents)
-    puts 'time warranty: ' 
-    puts 'time now '
+    puts 'time warranty: ' + Time.at(contents['exp']).ctime 
+    puts 'time now ' + Time.now.ctime
     Time.now > Time.at(contents['exp'])
   rescue StandardError
     raise InvalidTokenError
