@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+ require_relative 'note'
+
 module LastWillFile
   # Behaviors of the currently logged in account
   class Note
