@@ -67,8 +67,7 @@ module LastWillFile
           flash[:notice] = 'Please check your email for a verification link'
           routing.redirect '/'
         rescue StandardError => e
-          puts "ERROR VERIFYING REGISTRAATION: #{e.inspect}"
-          puts e.backtrace
+          puts "ERROR VERIFYING REGISTRATION: #{e.inspect}"
           flash[:error] = 'Registration details are not valid'
           routing.redirect @register_route
         end
