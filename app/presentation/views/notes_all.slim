@@ -6,9 +6,9 @@ div class="col-xs-3"
 table class="table"
 thead
 tr
-  th Note name
+  th Note's name
 tbody
-- notes.all.each do |proj|
-  tr
-    td
-      a href="/account/notes/#{proj.id}" #{proj.name}
+  - notes.all.each do |proj|
+    tr
+      td
+        a href="/account/notes/#{proj.id}" #{proj.name}
