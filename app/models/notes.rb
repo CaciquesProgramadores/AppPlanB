@@ -7,9 +7,9 @@ module LastWillFile
   class Notes
     attr_reader :all
 
-    def initialize(projects_list)
-      @all = projects_list.map do |proj|
-        Note.new(proj)
+    def initialize(notes_list)
+      @all = notes_list.map do |note|
+        Note.new(note)
       end
     end
   end

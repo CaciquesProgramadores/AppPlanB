@@ -2,6 +2,7 @@
 
 require 'roda'
 require 'slim'
+require 'slim/include'
 
 module LastWillFile
   # Base class for Credence Web Application

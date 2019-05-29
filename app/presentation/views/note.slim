@@ -1,0 +1,66 @@
+h2
+  == "#{note.name}"
+
+dl
+  div class="row"
+    div class="col-xs-3"
+      dt Note documents:
+    div class="col-xs-9"
+      dd class="blockquote"
+        a href="#{note.repo_url}" #{note.repo_url}
+
+div class="row"
+  div class="col-lg-9"
+    div class="row"
+      table class="table"
+        thead
+          tr
+            th Tile
+            th Description
+        tbody
+          - note.inheritors.each do |inheritor|
+            tr
+              td 
+                a href="/inheritors/#{inheritor.id}"
+                  == "#{inheritor.filename}"
+              td #{inheritor.description}
+    div class="row"
+      div class="col-xs-4"
+        - if note.policies.can_add_inheritors
+          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newInheritorModal" + New Inheritor
+    div class="row" style="height:10px;"
+  div class="col-lg-3"
+    div class="panel panel-default"
+      div class="panel-heading" Collaborators
+      div class="panel-body"
+        - if note.collaborators.empty?
+          span class="small" There are no collaborators yet
+        ul class="list-group"
+          li class="list-group-item clearfix"
+              = note.owner.username
+          - note.collaborators.each do |collaborator|
+            li class="list-group-item clearfix"
+              '  #{collaborator.username}
+              - if note.policies.can_remove_collaborators
+                span class="pull-right"
+                  form role='form' method='post' action="/projects/#{project.id}/collaborators"
+                    input type='hidden' name='action' value='remove'
+                    input type='hidden' name='email' value="#{collaborator.email}"
+                    button type="submit" class="btn btn-xs btn-default"
+                      span class="glyphicon glyphicon-remove"
+        - if note.policies.can_add_collaborators
+          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newCollaboratorModal" + Add Collaborator
+
+include :inheritor_new_partial
+include :collaborator_new_partial
+
+.row
+  .text-center
+    - if note.policies.can_edit
+      a href="" edit project
+    - if note.policies.can_delete
+      == ' | '
+      a href="" delete project
+    - if note.policies.can_leave
+      == ' | '
+      a href="" leave project 

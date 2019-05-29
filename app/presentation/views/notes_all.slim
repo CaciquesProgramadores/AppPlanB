@@ -1,8 +1,9 @@
 
 div class="row" style="vertical-align: bottom;"
 div class="col-xs-9"
-h3 All Notes
+h3 List Notes
 div class="col-xs-3"
+   button type="button" class="btn btn-success" data-toggle="modal" data-target="#newNoteModal" + New Notes
 table class="table"
 thead
 tr
@@ -11,7 +12,7 @@ tbody
   - notes.all.each do |proj|
     tr
       td
-        a href="/account/notes/#{proj.id}" #{proj.name}
+        a href="/notes/#{proj.id}" #{proj.name}
 
 h3 I'm inheritor in:
 div class="col-xs-3"
@@ -20,3 +21,5 @@ thead
 tr
   th Note's name
 tbody
+
+include :note_new_partial
