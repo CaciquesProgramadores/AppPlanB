@@ -9,7 +9,6 @@ module LastWillFile
 
     def initialize(config)
       @config = config
-      puts 'HUNTing 2!!!: '
     end
 
     def call(username:, password:)
@@ -17,7 +16,7 @@ module LastWillFile
                            json: { username: username, password: password })
       raise(UnauthorizedError) if response.code == 403
       raise if response.code != 200
-
+      PUTS 'HUNT '
       account_info = response.parse['attributes']
       puts 'HUNT ACCOUNT' + account_info['account']
       {
