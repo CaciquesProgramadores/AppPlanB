@@ -19,7 +19,7 @@ module LastWillFile
       raise if response.code != 200
 
       account_info = response.parse['attributes']
-      puts account_info['account']
+      puts 'HUNT ACCOUNT' + account_info['account']
       {
         account: account_info['account'],
         auth_token: account_info['auth_token']
