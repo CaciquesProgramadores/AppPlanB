@@ -22,9 +22,9 @@ module LastWillFile
           flash[:error] = 'Please enter both username and password'
           routing.redirect @login_route
         end
-        puts 'hunt 1'
+
         authenticated = AuthenticateAccount.new(App.config).call(credentials)
-        puts 'hunt 2'
+        
 
         current_account = Account.new(
             authenticated[:account],
