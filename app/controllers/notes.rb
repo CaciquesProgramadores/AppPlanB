@@ -48,8 +48,8 @@ module LastWillFile
               flash[:error] = 'Note not found'
               routing.redirect @projects_route
             end
-=begin
-            # POST /projects/[proj_id]/collaborators
+# =begin
+            # POST /notes/[proj_id]/collaborators
             routing.post('collaborators') do
               action = routing.params['action']
               collaborator_info = Form::CollaboratorEmail.call(routing.params)
@@ -78,7 +78,7 @@ module LastWillFile
             ensure
               routing.redirect @project_route
             end
-=end
+# =end
             # POST /notes/[proj_id]/inheritor/
             routing.post('notes') do
               document_data = Form::NewInheritor.call(routing.params)

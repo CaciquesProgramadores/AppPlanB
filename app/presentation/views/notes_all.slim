@@ -1,25 +1,19 @@
-
 div class="row" style="vertical-align: bottom;"
-div class="col-xs-9"
-h3 List Notes
-div class="col-xs-3"
-   button type="button" class="btn btn-success" data-toggle="modal" data-target="#newNoteModal" + New Notes
+  div class="col-xs-9"
+    h3 All notes
+  div class="col-xs-3"
+     button type="button" class="btn btn-success" data-toggle="modal" data-target="#newProjectModal" + New Note
 table class="table"
-thead
-tr
-  th Note's name
-tbody
-  - notes.all.each do |proj|
+  thead
     tr
-      td
-        a href="/notes/#{proj.id}" #{proj.name}
-
-h3 I'm inheritor in:
-div class="col-xs-3"
-table class="table"
-thead
-tr
-  th Note's name
-tbody
+      th Note name
+      th Title
+  tbody
+    - notes.all.each do |proj|
+      tr
+        td 
+          a href="/account/notes/#{proj.id}" #{proj.title}
+          td 
+            a href="#{proj.title}" #{proj.description}
 
 include :note_new_partial

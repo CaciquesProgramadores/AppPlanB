@@ -5,7 +5,7 @@
 module LastWillFile
   # Behaviors of the currently logged in account
   class Note
-    attr_reader :id, :name, :description, :files_ids, #basic info
+    attr_reader :id, :title, :description, :files_ids, #basic info
                 :owner, :inheritors # full details
 
     def initialize(proj_info)

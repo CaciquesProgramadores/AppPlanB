@@ -20,7 +20,7 @@ module LastWillFile
       puts 'HUNT 3!!!: ' + response.code.to_s
       raise if response.code != 200
 
-      account_info = response.parse['attributes']
+      account_info = response.parse['data']['attributes']
 
       {
         account: account_info['account'],
