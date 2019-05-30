@@ -16,6 +16,7 @@ module LastWillFile
                            json: { username: username, password: password })
 
       raise(UnauthorizedError) if response.code == 403
+      puts 'responde: ' + response.code
       raise if response.code != 200
 
       account_info = response.parse['attributes']
