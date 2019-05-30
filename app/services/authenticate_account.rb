@@ -15,9 +15,9 @@ module LastWillFile
     def call(username:, password:)
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
                            json: { username: username, password: password })
-      puts 'HUNT 2!!!: ' + response.code
+      puts 'HUNT 2!!!: ' + response.code.to_s
       raise(UnauthorizedError) if response.code == 403
-      puts 'HUNT 3!!!: ' + response.code
+      puts 'HUNT 3!!!: ' + response.code.to_s
       raise if response.code != 200
 
       account_info = response.parse['attributes']
