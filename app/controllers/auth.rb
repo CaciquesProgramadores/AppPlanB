@@ -22,9 +22,9 @@ module LastWillFile
           flash[:error] = 'Please enter both username and password'
           routing.redirect @login_route
         end
-
+        puts "hunt 1"
         authenticated = AuthenticateAccount.new(App.config).call(credentials)
-
+        puts "hunt 2"
           current_account = Account.new(
             authenticated[:account],
             authenticated[:auth_token]
@@ -72,7 +72,7 @@ module LastWillFile
             flash[:error] = Form.validation_errors(registration)
             routing.redirect @register_route
           end
-          
+
           VerifyRegistration.new(App.config).call(registration)
           flash[:notice] = 'Please check your email for a verification link'
           routing.redirect '/'
