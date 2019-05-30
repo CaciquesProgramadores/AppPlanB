@@ -24,6 +24,8 @@ module LastWillFile
         end
         puts 'hunt 1'
         authenticated = AuthenticateAccount.new(App.config).call(credentials)
+        puts 'hunt 2'
+
         current_account = Account.new(
             authenticated[:account],
             authenticated[:auth_token]
