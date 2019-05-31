@@ -9,24 +9,6 @@ module LastWillFile
     route('notes') do |routing|
       routing.on do
         # GET /notes/
-=begin
-        routing.get do
-
-          if @current_account.logged_in?
-            note_list = GetAllNotes.new(App.config).call(@current_account)
-
-            notes = Notes.new(note_list)
-
-            view :notes_all,
-                 locals: { current_user: @current_account, notes: notes }
-          else
-            routing.redirect '/auth/login'
-          end
-        end
-      end
-    end
-  end
-=end
           routing.redirect '/auth/login' unless @current_account.logged_in?
           @projects_route = '/notes'
 
@@ -49,32 +31,32 @@ module LastWillFile
               routing.redirect @projects_route
             end
 # =begin
-            # POST /notes/[proj_id]/collaborators
-            routing.post('collaborators') do
+             # POST /notes/[proj_id]/authorises
+             routing.post('authorises') do
               action = routing.params['action']
-              collaborator_info = Form::CollaboratorEmail.call(routing.params)
-              if collaborator_info.failure?
+              authorise_info = Form::AuthoriseEmail.call(routing.params)
+              if authorise_info.failure?
                 flash[:error] = Form.validation_errors(collaborator_info)
                 routing.halt
               end
 
               task_list = {
-                'add'    => { service: AddCollaborator,
-                              message: 'Added new collaborator to project' },
-                'remove' => { service: RemoveCollaborator,
-                              message: 'Removed collaborator from project' }
+                'add'    => { service: AddAuthorise,
+                              message: 'Added new authorisor to project' },
+                'remove' => { service: RemoveAuthorise,
+                              message: 'Removed authorisor from project' }
               }
 
               task = task_list[action]
               task[:service].new(App.config).call(
                 current_account: @current_account,
-                collaborator: collaborator_info,
-                project_id:   proj_id
+                authorise: authorise_info,
+                note_id:   proj_id
               )
               flash[:notice] = task[:message]
 
             rescue StandardError
-              flash[:error] = 'Could not find collaborator'
+              flash[:error] = 'Could not find authorisor'
             ensure
               routing.redirect @project_route
             end

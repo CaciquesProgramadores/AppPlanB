@@ -4,7 +4,7 @@ h2
 dl
   div class="row"
     div class="col-xs-3"
-      dt Note documents:
+      dt Note List:
     div class="col-xs-9"
       dd class="blockquote"
         a href="#{note.repo_url}" #{note.repo_url}
@@ -31,36 +31,36 @@ div class="row"
     div class="row" style="height:10px;"
   div class="col-lg-3"
     div class="panel panel-default"
-      div class="panel-heading" Collaborators
+      div class="panel-heading" Authorisors
       div class="panel-body"
-        - if note.collaborators.empty?
-          span class="small" There are no collaborators yet
+        - if note.authorises.empty?
+          span class="small" There are no authorisors yet
         ul class="list-group"
           li class="list-group-item clearfix"
               = note.owner.username
-          - note.collaborators.each do |collaborator|
+          - note.authorises.each do |authorise|
             li class="list-group-item clearfix"
-              '  #{collaborator.username}
+              '  #{authorise.username}
               - if note.policies.can_remove_collaborators
                 span class="pull-right"
                   form role='form' method='post' action="/projects/#{project.id}/collaborators"
                     input type='hidden' name='action' value='remove'
-                    input type='hidden' name='email' value="#{collaborator.email}"
+                    input type='hidden' name='email' value="#{authorise.email}"
                     button type="submit" class="btn btn-xs btn-default"
                       span class="glyphicon glyphicon-remove"
         - if note.policies.can_add_collaborators
-          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newCollaboratorModal" + Add Collaborator
+          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newAuthoriseModal" + Add Authorisor
 
 include :inheritor_new_partial
-include :collaborator_new_partial
+include :authorise_new_partial
 
 .row
   .text-center
     - if note.policies.can_edit
-      a href="" edit project
+      a href="" edit note
     - if note.policies.can_delete
       == ' | '
-      a href="" delete project
+      a href="" delete note
     - if note.policies.can_leave
       == ' | '
-      a href="" leave project 
+      a href="" leave note 
