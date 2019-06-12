@@ -74,7 +74,7 @@ module LastWillFile
            CurrentSession.new(session).current_account = current_account
 
            flash[:notice] = "Welcome #{current_account.username}!"
-          routing.redirect '/projects'
+          routing.redirect '/notes'
         rescue AuthorizeGithubAccount::UnauthorizedError
           flash[:error] = 'Could not login with Github'
           response.status = 403
