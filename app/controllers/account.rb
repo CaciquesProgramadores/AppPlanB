@@ -15,7 +15,7 @@ module LastWillFile
 
           view :account, locals: { account: account }
         rescue GetAccountDetails::InvalidAccount => e
-          flash[:error] = e.message
+          flash[:error] = e.message 
           routing.redirect '/auth/login'
         end
 

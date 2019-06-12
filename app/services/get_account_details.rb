@@ -12,7 +12,7 @@ class GetAccountDetails
   end
 
   def initialize(config)
-    @config = config
+    @config = config 
   end
 
   def call(current_account, username)
