@@ -10,17 +10,17 @@ module LastWillFile
       routing.on do
         # GET /notes/
           routing.redirect '/auth/login' unless @current_account.logged_in?
-          @projects_route = '/notes'
+          @notes_route = '/notes'
 
           routing.on(String) do |proj_id|
-            @project_route = "#{@projects_route}/#{proj_id}"
+            @project_route = "#{@notes_route}/#{proj_id}"
 
             # GET /notes/[proj_id]
             routing.get do
               proj_info = GetNote.new(App.config).call(
                 @current_account, proj_id
               )
-              project = Note.new(proj_info)
+              note = Note.new(proj_info)
 
               view :note, locals: {
                 current_account: @current_account, note: note
@@ -28,7 +28,7 @@ module LastWillFile
             rescue StandardError => e
               puts "#{e.inspect}\n#{e.backtrace}"
               flash[:error] = 'Note not found'
-              routing.redirect @projects_route
+              routing.redirect @notes_route
             end
 # =begin
              # POST /notes/[proj_id]/authorises
@@ -115,7 +115,7 @@ module LastWillFile
             puts "FAILURE Creating Project: #{e.inspect}"
             flash[:error] = 'Could not create project'
           ensure
-            routing.redirect @projects_route
+            routing.redirect @notes_route
           end
         end
       end
