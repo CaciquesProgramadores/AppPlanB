@@ -6,14 +6,14 @@ div class="row" style="vertical-align: bottom;"
 table class="table"
   thead
     tr
-      th Note Title
+      th Note id
       th Description
   tbody
     - notes.all.each do |proj|
       tr
         td 
-          a href="/notes/#{proj.id}" #{proj.title}
+          a href="/notes/#{proj.id}" #{proj.id}
           td 
-            a href="notes/#{proj.id}" #{proj.description}
+            a href="notes/#{proj.id}" #{proj.title}
 
 include :note_new_partial

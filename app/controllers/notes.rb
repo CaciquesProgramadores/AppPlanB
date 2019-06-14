@@ -30,13 +30,13 @@ module LastWillFile
               flash[:error] = 'Note not found'
               routing.redirect @projects_route
             end
-# =begin
+
              # POST /notes/[proj_id]/authorises
              routing.post('authorises') do
               action = routing.params['action']
               authorise_info = Form::AuthoriseEmail.call(routing.params)
               if authorise_info.failure?
-                flash[:error] = Form.validation_errors(collaborator_info)
+                flash[:error] = Form.validation_errors(authorise_info)
                 routing.halt
               end
 
@@ -60,7 +60,7 @@ module LastWillFile
             ensure
               routing.redirect @project_route
             end
-# =end
+
             # POST /notes/[proj_id]/inheritor/
             routing.post('notes') do
               document_data = Form::NewInheritor.call(routing.params)
@@ -112,8 +112,8 @@ module LastWillFile
 
             flash[:notice] = 'Add inheritor and executor to your new will note'
           rescue StandardError => e
-            puts "FAILURE Creating Project: #{e.inspect}"
-            flash[:error] = 'Could not create project'
+            puts "FAILURE Creating Note: #{e.inspect}"
+            flash[:error] = 'Could not create Note'
           ensure
             routing.redirect @projects_route
           end

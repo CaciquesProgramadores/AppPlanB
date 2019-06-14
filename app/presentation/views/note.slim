@@ -43,12 +43,12 @@ div class="row"
               '  #{authorise.username}
               - if note.policies.can_remove_collaborators
                 span class="pull-right"
-                  form role='form' method='post' action="/projects/#{project.id}/collaborators"
+                  form role='form' method='post' action="/projects/#{project.id}/authorises"
                     input type='hidden' name='action' value='remove'
                     input type='hidden' name='email' value="#{authorise.email}"
                     button type="submit" class="btn btn-xs btn-default"
                       span class="glyphicon glyphicon-remove"
-        - if note.policies.can_add_collaborators
+        - if note.policies.can_add_authorises
           button type="button" class="btn btn-success" data-toggle="modal" data-target="#newAuthoriseModal" + Add Authorisor
 
 include :inheritor_new_partial
