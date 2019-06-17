@@ -1,13 +1,13 @@
 h2
-  == "#{note.name}"
+  == "#{note.title}"
 
 dl
   div class="row"
     div class="col-xs-3"
-      dt Note List:
+      dt Note description:
     div class="col-xs-9"
       dd class="blockquote"
-        a href="#{note.repo_url}" #{note.repo_url}
+        a href="#" #{note.description}
 
 div class="row"
   div class="col-lg-9"
@@ -15,14 +15,14 @@ div class="row"
       table class="table"
         thead
           tr
-            th Tile
+            th Full Name
             th Description
         tbody
           - note.inheritors.each do |inheritor|
             tr
               td 
                 a href="/inheritors/#{inheritor.id}"
-                  == "#{inheritor.filename}"
+                  == "#{inheritor.fullname}"
               td #{inheritor.description}
     div class="row"
       div class="col-xs-4"
@@ -33,21 +33,23 @@ div class="row"
     div class="panel panel-default"
       div class="panel-heading" Authorisors
       div class="panel-body"
-        - if note.authorises.empty?
+        - if note.authorises.nil?
           span class="small" There are no authorisors yet
         ul class="list-group"
           li class="list-group-item clearfix"
               = note.owner.username
+        - unless note.authorises.nil?
           - note.authorises.each do |authorise|
             li class="list-group-item clearfix"
               '  #{authorise.username}
-              - if note.policies.can_remove_collaborators
+              - if note.policies.can_remove_authorises
                 span class="pull-right"
-                  form role='form' method='post' action="/projects/#{project.id}/authorises"
+                  form role='form' method='post' action="/notes/#{note.id}/authorises"
                     input type='hidden' name='action' value='remove'
                     input type='hidden' name='email' value="#{authorise.email}"
                     button type="submit" class="btn btn-xs btn-default"
                       span class="glyphicon glyphicon-remove"
+        
         - if note.policies.can_add_authorises
           button type="button" class="btn btn-success" data-toggle="modal" data-target="#newAuthoriseModal" + Add Authorisor
 

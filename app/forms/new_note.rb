@@ -4,7 +4,7 @@ require_relative 'form_base'
 
 module LastWillFile
   module Form
-    NewDocument = Dry::Validation.Params do
+    NewInheritor = Dry::Validation.Params do
       configure do
         config.messages_file = File.join(__dir__, 'errors/new_note.yml')
       end

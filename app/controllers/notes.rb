@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'roda'
-
+require 'pry'
 module LastWillFile
   # Web controller for Credence API
   class App < Roda
@@ -20,12 +20,15 @@ module LastWillFile
               proj_info = GetNote.new(App.config).call(
                 @current_account, proj_id
               )
-              note = Note.new(proj_info)
-
+              
+              note = Note.new(proj_info['data'])
+              
               view :note, locals: {
                 current_account: @current_account, note: note
               }
+              
             rescue StandardError => e
+              #binding.pry
               puts "#{e.inspect}\n#{e.backtrace}"
               flash[:error] = 'Note not found'
               routing.redirect @notes_route
