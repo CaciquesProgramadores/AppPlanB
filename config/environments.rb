@@ -2,7 +2,7 @@
 
 require 'roda'
 require 'econfig'
-require 'rack/ssl-enforcer'
+
 require 'rack/session/redis'
 require_relative '../require_app'
 
