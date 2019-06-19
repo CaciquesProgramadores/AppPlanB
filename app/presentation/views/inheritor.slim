@@ -1,6 +1,6 @@
 h2 
-  a href="/projects/#{inheritor.note.id}" #{inheritor.note.title}
-h3 File: #{File.join(inheritor.relationship, inheritor.nickname)}
+  a href="/notes/#{inheritor.note.id}" #{inheritor.note.id}
+h3 File: #{File.join(inheritor.relantionship, inheritor.nickname)}
 
 dl
   div class="row"
@@ -9,9 +9,9 @@ dl
     div class="col-xs-9"
       dd class="blockquote" #{inheritor.description}
     div class="col-xs-3"
-      dt Document:
+      dt Inheritor:
     div class="col-xs-9"
       dd class="blockquote"
-        a data-toggle="collapse" href="#document" aria-expanded="false" aria-controls="document" show document
-        div id="document" class="collapse"
+        a data-toggle="collapse" href="#inheritor" aria-expanded="false" aria-controls="inheritor" show inheritor
+        div id="inheritor" class="collapse"
           pre class="force-wrap" #{inheritor.fullname}
