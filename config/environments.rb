@@ -2,7 +2,7 @@
 
 require 'roda'
 require 'econfig'
-require 'rack/SslEnforcer'
+require 'rack/ssl-enforcer'
 require 'rack/session/redis'
 require_relative '../require_app'
 
@@ -26,8 +26,8 @@ module LastWillFile
     end
 
     configure :production do
-      use Rack::SSL
-      #use Rack::SslEnforcer #, hsts: true
+      #use Rack::SSL
+      use Rack::SslEnforcer #, hsts: true
 
       use Rack::Session::Redis,
           expire_after: ONE_MONTH, redis_server: config.REDIS_URL
