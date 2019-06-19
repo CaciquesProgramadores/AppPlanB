@@ -138,7 +138,7 @@ module LastWillFile
           routing.get do
             note_list = GetAllNotes.new(App.config).call(@current_account)
 
-            notes = Notes.new(note_list)
+            notes = Notes.new(note_list) #
 
             view :notes_all,
                  locals: { current_user: @current_account, notes: notes }
