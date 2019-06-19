@@ -2,6 +2,7 @@
 
 require 'roda'
 require_relative './app'
+require 'pry'
 
 module LastWillFile
  # Web controller for Credence API
@@ -113,7 +114,7 @@ module LastWillFile
             routing.redirect @register_route
           end
 
-          VerifyRegistration.new(App.config).call(registration)
+          VerifyRegistration.new(App.config).call(routing.params)
           flash[:notice] = 'Please check your email for a verification link'
           routing.redirect '/'
         rescue StandardError => e
@@ -130,20 +131,11 @@ module LastWillFile
         #   flash[:error] = 'Registration details are not valid'
         #   routing.redirect @register_route
         # else
-          flash.now[:notice] = 'Email Verified! Please choose a new password'
-
-          new_account = SecureMessage.decrypt(registration_token)
-          # new_account = RegistrationToken.payload(registration_token)
-          view :register_confirm,
-               locals: { new_account: new_account,
-                         registration_token: registration_token }
-        # end
-
-
-
-
-
-
+        flash.now[:notice] = 'Email Verified! Please choose a new password'
+        new_account = SecureMessage.decrypt(registration_token)
+        view :register_confirm,
+             locals: { new_account: new_account,
+                       registration_token: registration_token }
       end
     end
   end

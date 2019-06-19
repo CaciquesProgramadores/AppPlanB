@@ -1,7 +1,7 @@
 en:
   errors:
     fullname: 'provide a fullname with up to 255 legal characters'
-    #fullname_valid?: 'fullname has illegal characters (e.g., & | \\ / <tab>'
+    fullname_valid?: 'fullname has illegal characters (e.g., & | \\ / <tab>'
     relantionship?: 'relatioship has illegal characters (e.g., & | <tab>)'
     description: 'provide a description'
     email: 'provide valid email'
