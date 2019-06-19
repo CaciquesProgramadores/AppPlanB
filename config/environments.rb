@@ -26,7 +26,8 @@ module LastWillFile
     end
 
     configure :production do
-      use Rack::SslEnforcer, hsts: true
+      use Rack::SSL
+      use Rack::SslEnforcer #, hsts: true
 
       use Rack::Session::Redis,
           expire_after: ONE_MONTH, redis_server: config.REDIS_URL
