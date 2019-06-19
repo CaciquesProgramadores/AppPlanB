@@ -1,5 +1,4 @@
 en:
   errors:
-    id: 'Id is not valid'
     title: 'Note name must be filled'
     description: 'URL must be in proper format'

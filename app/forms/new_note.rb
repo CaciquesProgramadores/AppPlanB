@@ -8,7 +8,6 @@ module LastWillFile
       configure do
         config.messages_file = File.join(__dir__, 'errors/new_note.yml')
       end
-
       required(:title).filled
       optional(:files_id).maybe
       required(:description).maybe
