@@ -24,8 +24,6 @@ module LastWillFile
       puts "hi world"
       existences = response.parse['data']
       # puts existences
-
-      existences = nil
       existences
     end
   end
