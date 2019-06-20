@@ -7,3 +7,9 @@
 .top-buffer { 
   margin-top:20px; 
 } 
+
+.navbar {
+  background-image: linear-gradient(#10b973, #15c52b 60%, #1d9);
+
+.btn-primary {
+  background-image: linear-gradient(#54eb59, #037d1d 60%, #22940d);

@@ -5,7 +5,7 @@ require_relative './app'
 require 'pry'
 
 module LastWillFile
- # Web controller for Credence APP
+ # Web controller for LastWillFile APP
   class App < Roda
     def gh_oauth_url(config)
       url = config.GH_OAUTH_URL
@@ -112,7 +112,9 @@ module LastWillFile
               routing.redirect @register_route
             end
 
-            VerifyRegistration.new(App.config).call(routing.params)
+            puts "hello POST /auth/register"
+
+            VerifyRegistration.new(App.config).call(registration)
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'
 
