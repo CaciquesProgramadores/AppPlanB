@@ -1,5 +1,5 @@
 h2
-  == "#{note.name}"
+  == "#{note.tile}"
 
 dl
   div class="row"
@@ -7,7 +7,7 @@ dl
       dt Note List:
     div class="col-xs-9"
       dd class="blockquote"
-        a href="#{note.repo_url}" #{note.repo_url}
+        a href="#{note.title}" #{note.title}
 
 div class="row"
   div class="col-lg-9"
@@ -22,7 +22,7 @@ div class="row"
             tr
               td 
                 a href="/inheritors/#{inheritor.id}"
-                  == "#{inheritor.filename}"
+                  == "#{inheritor.fullname}"
               td #{inheritor.description}
     div class="row"
       div class="col-xs-4"
@@ -41,14 +41,14 @@ div class="row"
           - note.authorises.each do |authorise|
             li class="list-group-item clearfix"
               '  #{authorise.username}
-              - if note.policies.can_remove_collaborators
+              - if note.policies.can_remove_authorises
                 span class="pull-right"
-                  form role='form' method='post' action="/projects/#{project.id}/collaborators"
+                  form role='form' method='post' action="/notes/#{note.id}/authorises"
                     input type='hidden' name='action' value='remove'
                     input type='hidden' name='email' value="#{authorise.email}"
                     button type="submit" class="btn btn-xs btn-default"
                       span class="glyphicon glyphicon-remove"
-        - if note.policies.can_add_collaborators
+        - if note.policies.can_add_authorises
           button type="button" class="btn btn-success" data-toggle="modal" data-target="#newAuthoriseModal" + Add Authorisor
 
 include :inheritor_new_partial
@@ -63,4 +63,4 @@ include :authorise_new_partial
       a href="" delete note
     - if note.policies.can_leave
       == ' | '
-      a href="" leave note 
+      a href="" leave note

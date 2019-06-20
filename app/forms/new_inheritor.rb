@@ -4,9 +4,9 @@ require_relative 'form_base'
 
 module LastWillFile
   module Form
-    NewDocument = Dry::Validation.Params do
+    NewInheritor = Dry::Validation.Params do
       configure do
-        config.messages_file = File.join(__dir__, 'errors/new_note.yml')
+        config.messages_file = File.join(__dir__, 'errors/new_inheritor.yml')
       end
 
       required(:fullname).filled(max_size?: 256, format?: FILENAME_REGEX)

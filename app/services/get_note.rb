@@ -12,6 +12,6 @@ class GetNote
     response = HTTP.auth("Bearer #{current_account.auth_token}")
                    .get("#{@config.API_URL}/notes/#{note_id}")
 
-    response.code == 200 ? response.parse : nil
+    response.code == 200 ? response.parse['data'] : nil
   end
 end

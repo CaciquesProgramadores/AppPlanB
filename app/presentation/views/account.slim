@@ -6,11 +6,11 @@ h1 Account Details
   .row
     .col-sm-2 Username:
     .col-sm-10
-      == current_account.username
+      == account.username
   .row
     .col-sm-2 Email:
     .col-sm-10
-      == current_account.email
+      == account.email
   .row.top-buffer
     h3 API Access:
   .row
@@ -22,4 +22,4 @@ h1 Account Details
       dd class="blockquote"
         a data-toggle="collapse" href="#api_key" aria-expanded="false" aria-controls="document" show key
         div id="api_key" class="collapse" 
-          pre class="force-wrap" #{current_account.auth_token}
+          pre class="force-wrap" #{account.auth_token}

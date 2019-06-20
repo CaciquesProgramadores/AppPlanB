@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'roda'
+require 'pry'
 
 module LastWillFile
   # Web controller for Credence API
@@ -20,7 +21,8 @@ module LastWillFile
               proj_info = GetNote.new(App.config).call(
                 @current_account, proj_id
               )
-              project = Note.new(proj_info)
+              note = Note.new(proj_info)
+              binding.pry
 
               view :note, locals: {
                 current_account: @current_account, note: note
@@ -36,15 +38,15 @@ module LastWillFile
               action = routing.params['action']
               authorise_info = Form::AuthoriseEmail.call(routing.params)
               if authorise_info.failure?
-                flash[:error] = Form.validation_errors(collaborator_info)
+                flash[:error] = Form.validation_errors(authorise_info)
                 routing.halt
               end
 
               task_list = {
                 'add'    => { service: AddAuthorise,
-                              message: 'Added new authorisor to project' },
+                              message: 'Added new authorisor to note' },
                 'remove' => { service: RemoveAuthorise,
-                              message: 'Removed authorisor from project' }
+                              message: 'Removed authorisor from note' }
               }
 
               task = task_list[action]
@@ -76,9 +78,8 @@ module LastWillFile
               )
 
               flash[:notice] = 'Your inheritor was added'
-            rescue StandardError => error
-              puts error.inspect
-              puts error.backtrace
+            rescue StandardError => e
+              puts "ERROR CREATING inheritor: #{e.inspect}"
               flash[:error] = 'Could not add inheritor'
             ensure
               routing.redirect @project_route
@@ -91,8 +92,9 @@ module LastWillFile
 
             notes = Notes.new(note_list)
 
-            view :notes_all,
-                 locals: { current_user: @current_account, notes: notes }
+            view :notes_all, locals: {
+              current_account: @current_account, notes: notes
+            }
           end
 
           # POST /notes/
@@ -113,7 +115,7 @@ module LastWillFile
             flash[:notice] = 'Add inheritor and executor to your new will note'
           rescue StandardError => e
             puts "FAILURE Creating Project: #{e.inspect}"
-            flash[:error] = 'Could not create project'
+            flash[:error] = 'Could not create note'
           ensure
             routing.redirect @projects_route
           end
