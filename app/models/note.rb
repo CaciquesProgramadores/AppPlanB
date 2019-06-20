@@ -13,6 +13,7 @@ module LastWillFile
       process_attributes(proj_info['attributes'])
       process_relationships(proj_info['relationships'])
       process_policies(proj_info['policies'])
+      process_authorises(proj_info['authorises'])
       #binding.pry
     end
 

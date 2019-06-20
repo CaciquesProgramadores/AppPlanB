@@ -9,17 +9,16 @@ module LastWillFile
     route('account') do |routing|
       routing.on do
         # GET /account/[username]
-
         routing.get String do |username|
-          account = GetAccountDetails.new(App.config).call(@current_account, username)
+          account = GetAccountDetails.new(App.config).call(
+            @current_account, username
+          )
 
           view :account, locals: { account: account }
         rescue GetAccountDetails::InvalidAccount => e
           flash[:error] = e.message
           routing.redirect '/auth/login'
         end
-
-
 
         # POST /account/<token>
         routing.post String do |registration_token|

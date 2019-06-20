@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'roda'
+require 'pry'
 
 module LastWillFile
   # Web controller for Credence API
@@ -13,7 +14,7 @@ module LastWillFile
         doc_info = GetInheritor.new(App.config)
                               .call(@current_account, doc_id)
         inheritor = Inheritor.new(doc_info)
-
+        
         view :inheritor, locals: {
           current_account: @current_account, inheritor: inheritor
         }

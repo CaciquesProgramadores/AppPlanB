@@ -12,10 +12,10 @@ class RemoveAuthorise
       @config.API_URL
     end
   
-    def call(current_account:, authorise:, project_id:)
+    def call(current_account:, project_id:)
+      config_url = "#{api_url}/notes"
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                     .delete("#{api_url}/notes/#{project_id}/authorises",
-                             json: { email: authorise[:email] })
+                     .delete(config_url, json: { id: project_id })
   
       raise AuthoriseNotRemoved unless response.code == 200
     end

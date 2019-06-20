@@ -3,15 +3,14 @@
 require 'http'
 
 # Returns all notes belonging to an account
-class GetNote
+class GetInheritor
   def initialize(config)
     @config = config
   end
 
-  def call(current_account, note_id)
-    response = HTTP.auth("Bearer #{current_account.auth_token}")
-                   .get("#{@config.API_URL}/notes/#{note_id}")
-
+  def call(user, doc_id)
+    response = HTTP.auth("Bearer #{user.auth_token}")
+                   .get("#{@config.API_URL}/inheritors/#{doc_id}")
     response.code == 200 ? response.parse['data'] : nil
   end
 end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 # Service to add collaborator to project
 class AddAuthorise
     class AuthoriseNotAdded < StandardError; end
@@ -16,7 +16,7 @@ class AddAuthorise
       response = HTTP.auth("Bearer #{current_account.auth_token}")
                      .put("#{api_url}/notes/#{project_id}/authorises",
                           json: { email: authorise[:email] })
-  
+      binding.pry
       raise AuthoriseNotAdded unless response.code == 200
     end
   end
