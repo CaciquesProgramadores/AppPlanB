@@ -22,7 +22,7 @@ module LastWillFile
 
       # existences = response.parse['data']
       puts "hi world"
-      existences = response.parse['data']
+      existences = response.parse
       # puts existences
       existences
     end
