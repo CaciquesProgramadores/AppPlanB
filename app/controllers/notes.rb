@@ -4,7 +4,7 @@
 require 'roda'
 require 'pry'
 module LastWillFile
-  # Web controller for Credence API
+  # Web controller for LastWillFile API
   class App < Roda
     route('notes') do |routing|
       routing.on do
@@ -20,13 +20,13 @@ module LastWillFile
               proj_info = GetNote.new(App.config).call(
                 @current_account, proj_id
               )
-              
+
               note = Note.new(proj_info['data'])
-              
+
               view :note, locals: {
                 current_account: @current_account, note: note
               }
-              
+
             rescue StandardError => e
               #binding.pry
               puts "#{e.inspect}\n#{e.backtrace}"

@@ -4,7 +4,7 @@ require 'roda'
 require_relative './app'
 
 module LastWillFile
-  # Web controller for Credence API
+  # Web controller for LastWillFile API
   class App < Roda
     route('account') do |routing|
       routing.on do
@@ -15,7 +15,7 @@ module LastWillFile
 
           view :account, locals: { account: account }
         rescue GetAccountDetails::InvalidAccount => e
-          flash[:error] = e.message 
+          flash[:error] = e.message
           routing.redirect '/auth/login'
         end
 
