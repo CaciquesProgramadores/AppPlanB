@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Service to add authorise to project
-class RemoveAuthorise
-    class AuthoriseNotRemoved < StandardError; end
+# Service to add executor to project
+class RemoveExecutor
+    class ExecutorNotRemoved < StandardError; end
   
     def initialize(config)
       @config = config
@@ -17,7 +17,7 @@ class RemoveAuthorise
       response = HTTP.auth("Bearer #{current_account.auth_token}")
                      .delete(config_url, json: { id: project_id })
   
-      raise AuthoriseNotRemoved unless response.code == 200
+      raise ExecutorNotRemoved unless response.code == 200
     end
   end
   

@@ -33,27 +33,27 @@ module LastWillFile
               routing.redirect @notes_route
             end
 
-             # POST /notes/[proj_id]/authorises
-             routing.post('authorises') do
+             # POST /notes/[proj_id]/executors
+             routing.post('executors') do
               action = routing.params['action']
-              authorise_info = Form::AuthoriseEmail.call(routing.params)
+              executor_info = Form::ExecutorEmail.call(routing.params)
               
-              if authorise_info.failure?
-                flash[:error] = Form.validation_errors(authorise_info)
+              if executor_info.failure?
+                flash[:error] = Form.validation_errors(executor_info)
                 routing.halt
               end
               
               task_list = {
-                'add'    => { service: AddAuthorise,
+                'add'    => { service: AddExecutor,
                               message: 'Added new authorisor to note' },
-                'remove' => { service: RemoveAuthorise,
+                'remove' => { service: RemoveExecutor,
                               message: 'Removed authorisor from note' }
               }
               
               task = task_list[action]
               task[:service].new(App.config).call(
                 current_account: @current_account,
-                authorise: authorise_info,
+                executor: executor_info,
                 project_id:   proj_id
               )
               

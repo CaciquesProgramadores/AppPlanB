@@ -4,7 +4,7 @@ require_relative 'form_base'
 
 module LastWillFile
   module Form
-    AuthoriseEmail = Dry::Validation.Params do
+    ExecutorEmail = Dry::Validation.Params do
       configure do
         config.messages_file = File.join(__dir__, 'errors/account_details.yml')
       end

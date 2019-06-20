@@ -7,13 +7,13 @@ module LastWillFile
   # Behaviors of the currently logged in account
   class Note
     attr_reader :id, :title, :description, :files_ids, #basic info
-                :owner, :authorises, :inheritors, :policies #full details
+                :owner, :executors, :inheritors, :policies #full details
 
     def initialize(proj_info)
       process_attributes(proj_info['attributes'])
       process_relationships(proj_info['relationships'])
       process_policies(proj_info['policies'])
-      process_authorises(proj_info['authorises'])
+      process_executors(proj_info['executors'])
       #binding.pry
     end
 
@@ -29,7 +29,7 @@ module LastWillFile
       return unless relationships
 
       @owner = Account.new(relationships['owner'])
-      @authoriese = process_authorises(relationships['authorises'])
+      @authoriese = process_executors(relationships['executors'])
       @inheritors = process_inheritors(relationships['inheritors'])
     end
 
@@ -43,10 +43,10 @@ module LastWillFile
       inheritors_info.map { |doc_info| Inheritor.new(doc_info) }
     end
 
-    def process_authorises(authorises)
-      return nil unless authorises
+    def process_executors(executors)
+      return nil unless executors
 
-      authorises.map { |account_info| Account.new(account_info) }
+      executors.map { |account_info| Account.new(account_info) }
     end
   end
 end
