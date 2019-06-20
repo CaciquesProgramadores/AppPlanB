@@ -112,9 +112,10 @@ module LastWillFile
               routing.redirect @register_route
             end
 
-            VerifyRegistration.new(App.config).call(registration)
+            VerifyRegistration.new(App.config).call(routing.params)
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'
+
           rescue StandardError => e
             puts "ERROR VERIFYING REGISTRATION: #{routing.params}\n#{e.inspect}"
             flash[:error] = 'Please use English characters for username only'
