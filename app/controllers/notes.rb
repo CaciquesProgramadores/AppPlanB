@@ -59,7 +59,7 @@ module LastWillFile
               
               #view :notes_all,
               #locals: { current_user: @current_account, notes: notes }
-               binding.pry 
+               #binding.pry 
               flash[:notice] = task[:message]
 
             rescue StandardError
