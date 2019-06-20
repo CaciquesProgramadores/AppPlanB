@@ -129,7 +129,11 @@ module LastWillFile
           flash[:error] = 'Please use English characters for username only'
           routing.redirect @register_route
         end
-
+      end
+      # GET /auth/register/<token>
+        routing.get(String) do |registration_token|
+          flash.now[:notice] = 'Email Verified! Please choose a new password'
+          new_account = SecureMessage.decrypt(registration_token)
         # if RegistrationToken.expiredToken?(registration_token)
         #   flash[:error] = 'Registration details are not valid'
         #   routing.redirect @register_route
