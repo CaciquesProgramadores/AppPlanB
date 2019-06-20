@@ -21,7 +21,7 @@ module LastWillFile
                 @current_account, proj_id
               )
               
-              note = Note.new(proj_info)
+              note = Note.new(routing.params)
               #binding.pry
               view :note, locals: {
                 current_account: @current_account, note: note
