@@ -50,7 +50,8 @@ module LastWillFile
             existences = GetExistences.new(App.config).call(
               @current_account
             )
-
+            puts "hello existences"
+            puts existences
             view :existences, locals: { existences: existences  }
           rescue GetExistences::NotFoundError => e
             flash[:error] = e.message
