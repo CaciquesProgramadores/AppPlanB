@@ -1,11 +1,12 @@
 div class="row" style="vertical-align: bottom;"
   div class="col-xs-9"
-    h3 All notes
-  div class="col-xs-3"
-     button type="button" class="btn btn-success" data-toggle="modal" data-target="#newNoteModal" + New Note
+    h3 All existences of note users
 table class="table"
   thead
     tr
-      th Title
-      th Description
+      th Email
   tbody
+  - existences.each do |proj|
+    tr
+      td
+        a #{proj}
