@@ -33,12 +33,12 @@ div class="row"
     div class="panel panel-default"
       div class="panel-heading" Executors
       div class="panel-body"
-        - if note.executors.nil?
+        - if note.executors.empty?
           span class="small" There are no executors yet
         ul class="list-group"
           li class="list-group-item clearfix"
               = note.owner.username
-        - unless note.executors.nil?
+        - unless note.executors.empty?
           - note.executors.each do |executor|
             li class="list-group-item clearfix"
               '  #{executor.username}
