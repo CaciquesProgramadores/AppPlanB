@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
  require_relative 'note'
+ require 'pry'
 
 module LastWillFile
   # Behaviors of the currently logged in account
   class Note
     attr_reader :id, :title, :description, :files_ids, #basic info
-                :owner, :authorises, :inheritors, :policies # full details
+                :owner, :authorises, :inheritors, :policies #full details
 
     def initialize(proj_info)
-      # @id = proj_info['attributes']['id']
-      # @title = proj_info['attributes']['title']
-      # @description = proj_info['attributes']['description']
-      process_attributes(proj_info['id'])
-      process_relationships(proj_info['title'])
+      process_attributes(proj_info['attributes'])
+      process_relationships(proj_info['relationships'])
       process_policies(proj_info['policies'])
+      process_authorises(proj_info['authorises'])
+      #binding.pry
     end
 
     private
 
     def process_attributes(attributes)
       @id = attributes['id']
-      @name = attributes['title']
+      @title = attributes['title']
       @description = attributes['description']
     end
 
@@ -29,7 +29,7 @@ module LastWillFile
       return unless relationships
 
       @owner = Account.new(relationships['owner'])
-      @authorises = process_authorises(relationships['authorises'])
+      @authoriese = process_authorises(relationships['authorises'])
       @inheritors = process_inheritors(relationships['inheritors'])
     end
 
@@ -43,7 +43,7 @@ module LastWillFile
       inheritors_info.map { |doc_info| Inheritor.new(doc_info) }
     end
 
-   def process_authorises(authorises)
+    def process_authorises(authorises)
       return nil unless authorises
 
       authorises.map { |account_info| Account.new(account_info) }

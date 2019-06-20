@@ -10,12 +10,12 @@ module LastWillFile
       end
 
       required(:fullname).filled(max_size?: 256, format?: FILENAME_REGEX)
-      required(:relationship).maybe(format?: PATH_REGEX)
+      required(:relantionship).maybe(format?: PATH_REGEX)
       required(:description).maybe
       required(:phones).maybe
       required(:nickname).maybe
       required(:pgp).maybe
-      required(:email).filled
+      required(:emails).filled
     end
   end
 end

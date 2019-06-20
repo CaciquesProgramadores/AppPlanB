@@ -5,7 +5,7 @@ require_relative 'note'
 module LastWillFile
   # Behaviors of the currently logged in account
   class Inheritor
-    attr_reader :id, :description, :relationship, :emails, # basic info
+    attr_reader :id, :description, :relantionship, :emails, # basic info
                 :phones, :nickname, :pgp, :fullname, :note # full details
 
     def initialize(info)
@@ -18,7 +18,7 @@ module LastWillFile
     def process_attributes(attributes)
       @id            = attributes['id']
       @description   = attributes['description']
-      @relationship  = attributes['relationship']
+      @relantionship  = attributes['relantionship']
       @emails        = attributes['emails']
       @phones        = attributes['phones']
       @nickname      = attributes['nickname']

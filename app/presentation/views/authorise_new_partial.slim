@@ -1,13 +1,13 @@
-div id="newCollaboratorModal" class="modal fade" role="dialog"
+div id="newExecutorModal" class="modal fade" role="dialog"
   div class="modal-dialog"
     div class="modal-content"
       div class="modal-header"
         h4 Add a Executor
       div class="modal-body"
-        form role="form" action="/notes/#{proj.id}/authorises" method='post' id='new-collaborator-form'
+        form role="form" action="/notes/#{note.id}/authorises" method='post' id='new-executor-form'
           input type='hidden' name='action' value='add'
           div class="form-group"
             label for='email_input' Email address:
-            input type='text' name='email' id='email_input' class="form-control" placeholder="Email of collaborator"
+            input type='text' name='email' id='email_input' class="form-control" placeholder="Email of Executor"
           button type='submit' id='registration-form-submit' class='submit' value='submit' class="btn btn-success" Add
           button type="button" class="btn btn-default" data-dismiss="modal" Cancel

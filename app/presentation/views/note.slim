@@ -1,13 +1,13 @@
 h2
-  == "#{note.tile}"
+  == "#{note.title}"
 
 dl
   div class="row"
     div class="col-xs-3"
-      dt Note List:
+      dt Note description:
     div class="col-xs-9"
       dd class="blockquote"
-        a href="#{note.title}" #{note.title}
+        a href="#" #{note.description}
 
 div class="row"
   div class="col-lg-9"
@@ -15,7 +15,7 @@ div class="row"
       table class="table"
         thead
           tr
-            th Tile
+            th Full Name
             th Description
         tbody
           - note.inheritors.each do |inheritor|
@@ -27,17 +27,18 @@ div class="row"
     div class="row"
       div class="col-xs-4"
         - if note.policies.can_add_inheritors
-          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newInheritorModal" + New Inheritor
+          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newInheritorModal" + New Inheritor 
     div class="row" style="height:10px;"
   div class="col-lg-3"
     div class="panel panel-default"
-      div class="panel-heading" Authorisors
+      div class="panel-heading" Executors
       div class="panel-body"
-        - if note.authorises.empty?
-          span class="small" There are no authorisors yet
+        - if note.authorises.nil?
+          span class="small" There are no executors yet
         ul class="list-group"
           li class="list-group-item clearfix"
               = note.owner.username
+        - unless note.authorises.nil?
           - note.authorises.each do |authorise|
             li class="list-group-item clearfix"
               '  #{authorise.username}
@@ -48,19 +49,22 @@ div class="row"
                     input type='hidden' name='email' value="#{authorise.email}"
                     button type="submit" class="btn btn-xs btn-default"
                       span class="glyphicon glyphicon-remove"
+        
         - if note.policies.can_add_authorises
-          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newAuthoriseModal" + Add Authorisor
+          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newExecutorModal" + Add Executor
 
 include :inheritor_new_partial
 include :authorise_new_partial
+include :note_mod_partial
+include :remove_message
 
 .row
   .text-center
     - if note.policies.can_edit
-      a href="" edit note
+     a href="#modNoteModal" data-toggle="modal" data-target="#modNoteModal" edit note
     - if note.policies.can_delete
       == ' | '
-      a href="" delete note
+      a href="#RmMsgModal" data-toggle="modal" data-target="#RmMsgModal" delete note
     - if note.policies.can_leave
       == ' | '
       a href="" leave note

@@ -2,6 +2,7 @@
 
 require 'roda'
 require_relative './app'
+require 'pry'
 
 module LastWillFile
  # Web controller for Credence APP
@@ -71,7 +72,7 @@ module LastWillFile
 
           CurrentSession.new(session).current_account = current_account
 
-          flash[:notice] = "Welcome #{current_account.username}!"
+           flash[:notice] = "Welcome #{current_account.username}!"
           routing.redirect '/notes'
         rescue AuthorizeGithubAccount::UnauthorizedError
           flash[:error] = 'Could not login with Github'
@@ -119,16 +120,25 @@ module LastWillFile
             flash[:error] = 'Please use English characters for username only'
             routing.redirect @register_route
           end
+
+          VerifyRegistration.new(App.config).call(routing.params)
+          flash[:notice] = 'Please check your email for a verification link'
+          routing.redirect '/'
+        rescue StandardError => e
+          puts "ERROR VERIFYING REGISTRATION: #{routing.params}\n#{e.inspect}"
+          flash[:error] = 'Please use English characters for username only'
+          routing.redirect @register_route
         end
 
-        # GET /auth/register/<token>
-        routing.get(String) do |registration_token|
-          flash.now[:notice] = 'Email Verified! Please choose a new password'
-          new_account = SecureMessage.decrypt(registration_token)
-          view :register_confirm,
-              locals: { new_account: new_account,
-                        registration_token: registration_token }
-        end
+        # if RegistrationToken.expiredToken?(registration_token)
+        #   flash[:error] = 'Registration details are not valid'
+        #   routing.redirect @register_route
+        # else
+        flash.now[:notice] = 'Email Verified! Please choose a new password'
+        new_account = SecureMessage.decrypt(registration_token)
+        view :register_confirm,
+             locals: { new_account: new_account,
+                       registration_token: registration_token }
       end
     end
   end
