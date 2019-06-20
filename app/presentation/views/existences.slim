@@ -6,7 +6,7 @@ table class="table"
     tr
       th Email
   tbody
-  - existences do |proj|
+  - existences.each do |proj|
     tr
       td
         a #{proj}
