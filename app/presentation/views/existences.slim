@@ -4,6 +4,9 @@ div class="row" style="vertical-align: bottom;"
 table class="table"
   thead
     tr
-      th Title
-      th Description
+      th Email
   tbody
+  - existences do |proj|
+    tr
+      td
+        a #{proj}
