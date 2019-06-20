@@ -52,6 +52,7 @@ module LastWillFile
             )
             puts "hello existences"
             puts existences
+            puts "hello existences 2"
             view :existences, locals: { existences: existences  }
           rescue GetExistences::NotFoundError => e
             flash[:error] = e.message
