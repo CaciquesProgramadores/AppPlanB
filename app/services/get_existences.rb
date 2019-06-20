@@ -21,8 +21,8 @@ module LastWillFile
                    .get("#{@config.API_URL}/accounts/existences")
 
       existences = response.parse['data']
-
-      puts existences
+      puts "hi world"
+      # puts existences
 
       existences
     end

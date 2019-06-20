@@ -44,7 +44,7 @@ module LastWillFile
           )
         end
 
-        # GET api/v1/accounts/existences
+        # GET api/v1/account/existences
         routing.on('existences') do
           routing.get do
             existences = GetExistences.new(App.config).call(
