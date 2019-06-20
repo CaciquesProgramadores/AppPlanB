@@ -112,9 +112,7 @@ module LastWillFile
               routing.redirect @register_route
             end
 
-            puts "hello POST /auth/register"
-
-            VerifyRegistration.new(App.config).call(registration)
+            VerifyRegistration.new(App.config).call(routing.params)
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'
           rescue StandardError => e
