@@ -2,7 +2,9 @@
 # frozen_string_literal: true
 
 require 'roda'
+require_relative './app'
 require 'pry'
+
 module LastWillFile
   # Web controller for LastWillFile API
   class App < Roda
@@ -20,9 +22,7 @@ module LastWillFile
               proj_info = GetNote.new(App.config).call(
                 @current_account, proj_id
               )
-              #binding.pry
               note = Note.new(proj_info)
-              
               view :note, locals: {
                 current_account: @current_account, note: note
               }
@@ -95,23 +95,18 @@ module LastWillFile
             # POST /notes/[proj_id]/invitation/
             routing.post('invitation') do
               document_data = routing.params
-              #inh_email = params[:inh_id]
-              #if document_data.failure?
-                #flash[:error] = Form.message_values(document_data)
-                #routing.halt
-              #end
-              #binding.pry
+
               InviteInheritor.new(App.config).call(
                 current_account: @current_account,
                 req_data: document_data.to_h
               )
 
-              flash[:notice] = 'Your notification was send'
+              flash[:notice] = 'Your invitation was send'
             rescue StandardError => error
               #binding.pry
               puts error.inspect
               puts error.backtrace
-              flash[:error] = 'Notification message can not be send'
+              flash[:error] = 'Invitation can not be send, email already a member'
             ensure
               routing.redirect @project_route
             end

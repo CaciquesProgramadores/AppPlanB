@@ -11,21 +11,21 @@ module LastWillFile
     plugin :environments
     plugin :multi_route
 
-     FONT_SRC = %w[https://maxcdn.bootstrapcdn.com].freeze
+    FONT_SRC = %w[https://maxcdn.bootstrapcdn.com].freeze
     SCRIPT_SRC = %w[https://code.jquery.com
                     https://maxcdn.bootstrapcdn.com].freeze
     STYLE_SRC = %w[https://maxcdn.bootstrapcdn.com
                    https://cdnjs.cloudflare.com].freeze
 
-     configure :production do
+    configure :production do
       use Rack::SslEnforcer, hsts: true
     end
 
-     ## Uncomment to drop the login session in case of any violation
+    ## Uncomment to drop the login session in case of any violation
     # use Rack::Protection, reaction: :drop_session
     use SecureHeaders::Middleware
 
-     SecureHeaders::Configuration.default do |config|
+    SecureHeaders::Configuration.default do |config|
       config.cookies = {
         secure: true,
         httponly: true,
@@ -34,13 +34,13 @@ module LastWillFile
         }
       }
 
-       config.x_frame_options = 'DENY'
+      config.x_frame_options = 'DENY'
       config.x_content_type_options = 'nosniff'
       config.x_xss_protection = '1'
       config.x_permitted_cross_domain_policies = 'none'
       config.referrer_policy = 'origin-when-cross-origin'
 
-       # note: single-quotes needed around 'self' and 'none' in CSPs
+      # note: single-quotes needed around 'self' and 'none' in CSPs
       # rubocop:disable Lint/PercentStringArray
       config.csp = {
         report_only: false,
@@ -61,7 +61,7 @@ module LastWillFile
       # rubocop:enable Lint/PercentStringArray
     end
 
-     route('security') do |routing|
+    route('security') do |routing|
       # POST security/report_csp_violation
       routing.post 'report_csp_violation' do
         puts "CSP VIOLATION: #{request.body.read}"

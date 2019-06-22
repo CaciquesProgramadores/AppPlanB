@@ -32,7 +32,7 @@ div class="row"
                 form role='form' method='post' action="/notes/#{note.id}/invitation"
                   input type='hidden' name='note_id' value="#{note.id}"
                   input type='hidden' name='inh_email' value="#{inheritor.emails}"
-                  button type="submit" class="btn btn-xs btn-default" send notice 
+                  button type="submit" class="btn btn-xs btn-default" send invitation 
     div class="row"
       div class="col-xs-4"
         - if note.policies.can_add_inheritors

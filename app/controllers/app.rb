@@ -5,7 +5,7 @@ require 'slim'
 require 'slim/include'
 
 module LastWillFile
-  # Base class for Credence Web Application
+  # Base class for LastWillFile Web Application
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/presentation/views'
     plugin :assets, css: 'style.css', path: 'app/presentation/assets'

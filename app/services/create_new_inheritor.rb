@@ -15,8 +15,9 @@ class CreateNewInheritor
 
   def call(current_account:, note_id:, inheritor_data:)
     config_url = "#{api_url}/notes/#{note_id}/inheritors"
-    response = HTTP.auth("Bearer #{current_account.auth_token}")
-                   .post(config_url, json: inheritor_data)
+    response = HTTP
+      .auth("Bearer #{current_account.auth_token}")
+      .post(config_url, json: inheritor_data)
     #binding.pry
 
     response.code == 201 ? response.parse : raise

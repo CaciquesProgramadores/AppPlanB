@@ -61,9 +61,8 @@ module LastWillFile
       routing.is 'sso_callback' do
         # GET /auth/sso_callback
         routing.get do
-          authorized = AuthorizeGithubAccount
-                      .new(App.config)
-                      .call(routing.params['code'])
+          authorized = AuthorizeGithubAccount.new(App.config)
+            .call(routing.params['code'])
 
           current_account = Account.new(
             authorized[:account],
@@ -105,6 +104,7 @@ module LastWillFile
 
           # POST /auth/register
           routing.post do
+            #binding.pry
             registration = Form::Registration.call(routing.params)
 
             if registration.failure?

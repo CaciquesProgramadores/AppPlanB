@@ -13,10 +13,11 @@ class AddExecutor
     end
   
     def call(current_account:, executor:, project_id:)
-      response = HTTP.auth("Bearer #{current_account.auth_token}")
-                     .put("#{api_url}/notes/#{project_id}/executors",
-                          json: { email: executor[:email] })
-      binding.pry
+      response = HTTP
+        .auth("Bearer #{current_account.auth_token}")
+        .put("#{api_url}/notes/#{project_id}/collaborators",
+            json: { email: collaborator[:email] })
+      #binding.pry
       raise ExecutorNotAdded unless response.code == 200
     end
   end

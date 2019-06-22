@@ -4,17 +4,17 @@ require 'rake/testtask'
 require './require_app'
 
 task :print_env do
-puts "Environment: #{ENV['RACK_ENV'] || 'development'}"
+  puts "Environment: #{ENV['RACK_ENV'] || 'development'}"
 end
 
 desc 'Run application console (pry)'
 task :console => :print_env do
-sh 'pry -r ./specs/test_load_all'
+  sh 'pry -r ./specs/test_load_all'
 end
 
 desc 'Rake all the Ruby'
 task :style do
-`rubocop .`
+  `rubocop .`
 end
 
 desc 'Test all the specs'
@@ -44,14 +44,14 @@ task :release? => [:spec, :style, :audit] do
 end
 
 namespace :run do
-# Run in development mode
+  # Run in development mode
   task :dev do
     sh 'rackup -p 9292'
   end
 end
 
 task :load_lib do
-    require_app('lib')
+  require_app('lib')
 end
 
 namespace :generate do

@@ -23,10 +23,10 @@ module LastWillFile
       id = req_data['note_id'].to_i
       #binding.pry
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                     .post("#{@config.API_URL}/notes/#{id}/invitation", json: req_data)
-      #response = HTTP.post("#{@config.API_URL}/notes/#{id}/invitation",
-                           #json: req_data)
-      raise(InviteInheritorError) unless response.code == 202
+                    .post("#{@config.API_URL}/notes/#{id}/invitation",
+                    json: SignedMessage.sign(req_data)
+              )
+      raise InviteInheritorError unless response.code == 202
 
       response.parse
     end

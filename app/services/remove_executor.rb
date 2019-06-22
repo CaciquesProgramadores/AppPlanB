@@ -13,9 +13,10 @@ class RemoveExecutor
     end
   
     def call(current_account:, project_id:)
-      config_url = "#{api_url}/notes"
-      response = HTTP.auth("Bearer #{current_account.auth_token}")
-                     .delete(config_url, json: { id: project_id })
+      response = HTTP
+        .auth("Bearer #{current_account.auth_token}")
+        .delete("#{api_url}/notes/#{project_id}/executors",
+                json: { email: collaborator[:email] })
   
       raise ExecutorNotRemoved unless response.code == 200
     end

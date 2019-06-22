@@ -15,14 +15,17 @@ module LastWillFile
 
     def call(registration_data)
       registration_token = SecureMessage.encrypt(registration_data)
-
+      #binding.pry
       registration_data['verification_url'] = \
         "#{@config.APP_URL}/auth/register/#{registration_token}"
 
-      response = HTTP.post("#{@config.API_URL}/auth/register",
-                           json: registration_data)
+      response = HTTP.post(
+        "#{@config.API_URL}/auth/register",
+        json: SignedMessage.sign(registration_data)
+      )
+      #binding.pry
       raise(VerificationError) unless response.code == 202
-
+      #binding.pry
       response.parse
     end
   end

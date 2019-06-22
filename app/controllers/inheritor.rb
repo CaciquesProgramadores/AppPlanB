@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'roda'
+require_relative './app'
 require 'pry'
 
 module LastWillFile
-  # Web controller for Credence API
+  # Web controller for LastWillFile API
   class App < Roda
     route('inheritors') do |routing|
       routing.redirect '/auth/login' unless @current_account.logged_in?

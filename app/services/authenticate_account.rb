@@ -12,17 +12,18 @@ module LastWillFile
     end
 
     def call(username:, password:)
+      credentials = { username: username, password: password }
+
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
-                           json: { username: username, password: password })
+                            json: SignedMessage.sign(credentials))
       raise(NotAuthenticatedError) if response.code == 401
       raise if response.code != 200
 
       account_info = response.parse['data']['attributes']
-
-      {
-        account: account_info['account'],
-        auth_token: account_info['auth_token']
-      }
+      
+      
+      { account: account_info['account'],
+        auth_token: account_info['auth_token'] }
     end
   end
 end
