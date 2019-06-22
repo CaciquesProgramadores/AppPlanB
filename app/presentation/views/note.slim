@@ -17,13 +17,22 @@ div class="row"
           tr
             th Full Name
             th Description
+            th Email
+            th Action
         tbody
+          
           - note.inheritors.each do |inheritor|
             tr
               td 
                 a href="/inheritors/#{inheritor.id}"
                   == "#{inheritor.fullname}"
               td #{inheritor.description}
+              td #{inheritor.emails}    
+              td
+                form role='form' method='post' action="/notes/#{note.id}/invitation"
+                  input type='hidden' name='note_id' value="#{note.id}"
+                  input type='hidden' name='inh_email' value="#{inheritor.emails}"
+                  button type="submit" class="btn btn-xs btn-default" send notice 
     div class="row"
       div class="col-xs-4"
         - if note.policies.can_add_inheritors
@@ -33,12 +42,12 @@ div class="row"
     div class="panel panel-default"
       div class="panel-heading" Executors
       div class="panel-body"
-        - if note.executors.empty?
+        - if note.executors.nil?
           span class="small" There are no executors yet
         ul class="list-group"
           li class="list-group-item clearfix"
               = note.owner.username
-        - unless note.executors.empty?
+        - unless note.executors.nil?
           - note.executors.each do |executor|
             li class="list-group-item clearfix"
               '  #{executor.username}
@@ -57,6 +66,7 @@ include :inheritor_new_partial
 include :executor_new_partial
 include :note_mod_partial
 include :remove_message
+include :send_notice
 
 .row
   .text-center

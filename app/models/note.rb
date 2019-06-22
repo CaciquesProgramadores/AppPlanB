@@ -13,7 +13,7 @@ module LastWillFile
       process_attributes(proj_info['attributes'])
       process_relationships(proj_info['relationships'])
       process_policies(proj_info['policies'])
-      process_executors(proj_info['executors'])
+      #process_executors(proj_info['executors'])
       #binding.pry
     end
 

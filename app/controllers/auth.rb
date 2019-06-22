@@ -125,10 +125,18 @@ module LastWillFile
       routing.get(String) do |registration_token|
         flash.now[:notice] = 'Email Verified! Please choose a new password'
         new_account = SecureMessage.decrypt(registration_token)
-        view :register_confirm,
+
+        if new_account['username'].nil?
+          view :invitation_register_confirm,
              locals: { new_account: new_account,
                        registration_token: registration_token }
-      end
+        else
+        #binding.pry
+          view :register_confirm,
+              locals: { new_account: new_account,
+                        registration_token: registration_token }
+        end        
+        end
       end
     end
   end

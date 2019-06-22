@@ -20,9 +20,9 @@ module LastWillFile
               proj_info = GetNote.new(App.config).call(
                 @current_account, proj_id
               )
-              
-              note = Note.new(routing.params)
               #binding.pry
+              note = Note.new(proj_info)
+              
               view :note, locals: {
                 current_account: @current_account, note: note
               }
@@ -88,6 +88,30 @@ module LastWillFile
               puts error.inspect
               puts error.backtrace
               flash[:error] = 'Could not add inheritor'
+            ensure
+              routing.redirect @project_route
+            end
+
+            # POST /notes/[proj_id]/invitation/
+            routing.post('invitation') do
+              document_data = routing.params
+              #inh_email = params[:inh_id]
+              #if document_data.failure?
+                #flash[:error] = Form.message_values(document_data)
+                #routing.halt
+              #end
+              #binding.pry
+              InviteInheritor.new(App.config).call(
+                current_account: @current_account,
+                req_data: document_data.to_h
+              )
+
+              flash[:notice] = 'Your notification was send'
+            rescue StandardError => error
+              #binding.pry
+              puts error.inspect
+              puts error.backtrace
+              flash[:error] = 'Notification message can not be send'
             ensure
               routing.redirect @project_route
             end
