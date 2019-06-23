@@ -18,10 +18,10 @@ module LastWillFile
 
     def call(current_account)
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                   .get("#{@config.API_URL}/accounts/existences")
+                   .get("#{@config.API_URL}/existences")
 
       existences = response.parse
-      
+
       existences
     end
   end
