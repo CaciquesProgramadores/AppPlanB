@@ -16,7 +16,7 @@ module LastWillFile
 
           routing.on(String) do |proj_id|
             @project_route = "#{@notes_route}/#{proj_id}"
-            
+
             # GET /notes/[proj_id]
             routing.get do
               proj_info = GetNote.new(App.config).call(
@@ -26,7 +26,7 @@ module LastWillFile
               view :note, locals: {
                 current_account: @current_account, note: note
               }
-              
+
             rescue StandardError => e
               puts "#{e.inspect}\n#{e.backtrace}"
               flash[:error] = 'Note not found'
@@ -37,29 +37,30 @@ module LastWillFile
              routing.post('executors') do
               action = routing.params['action']
               executor_info = Form::ExecutorEmail.call(routing.params)
-              
+
               if executor_info.failure?
+                puts "executors 1"
                 flash[:error] = Form.validation_errors(executor_info)
                 routing.halt
               end
-              
+              puts "executors 2"
               task_list = {
                 'add'    => { service: AddExecutor,
                               message: 'Added new authorisor to note' },
                 'remove' => { service: RemoveExecutor,
                               message: 'Removed authorisor from note' }
               }
-              
+              puts "executors 3"
               task = task_list[action]
               task[:service].new(App.config).call(
                 current_account: @current_account,
                 executor: executor_info,
                 project_id:   proj_id
               )
-              
+              puts "executors 4"
               #view :notes_all,
               #locals: { current_user: @current_account, notes: notes }
-               #binding.pry 
+               #binding.pry
               flash[:notice] = task[:message]
 
             rescue StandardError
@@ -116,7 +117,7 @@ module LastWillFile
               routing.redirect '/auth/login' unless @current_account.logged_in?
               puts "NOTE: #{routing.params}"
               project_data = routing.params
-              
+
               UpdateNote.new(App.config).call(
                 current_account: @current_account,
                 project_data: project_data.to_h
@@ -129,14 +130,14 @@ module LastWillFile
             ensure
               routing.redirect @notes_route
             end
-            
+
             # POST /notes/[note_id]/delete
             routing.post('delete') do
               routing.redirect '/auth/login' unless @current_account.logged_in?
               puts "NOTE: #{routing.params}"
-              
+
               project_data = routing.params
-              
+
               DeleteNote.new(App.config).call(
                 current_account: @current_account,
                 project_data: project_data
@@ -172,20 +173,20 @@ module LastWillFile
               flash[:error] = Form.message_values(project_data)
               routing.halt
             end
-            
+
             CreateNewNote.new(App.config).call(
               current_account: @current_account,
               project_data: project_data.to_h
             )
-            
+
             flash[:notice] = 'Add inheritor and executor to your new will note'
           rescue StandardError => e
             puts "FAILURE Creating Note: #{e.inspect}"
             flash[:error] = 'Could not create Note'
           ensure
             routing.redirect @notes_route
-          end  
-                  
+          end
+
         end
       end
     end

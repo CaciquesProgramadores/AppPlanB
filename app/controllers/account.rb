@@ -43,20 +43,6 @@ module LastWillFile
             "#{App.config.APP_URL}/auth/register/#{registration_token}"
           )
         end
-
-        # GET api/v1/account/existences
-        routing.on('existences') do
-          routing.get do
-            existences = GetExistences.new(App.config).call(
-              @current_account
-            )
-            
-            view :existences, locals: { existences: existences  }
-          rescue GetExistences::NotFoundError => e
-            flash[:error] = e.message
-            routing.redirect '/'
-          end
-        end
       end
     end
   end
