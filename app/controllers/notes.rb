@@ -63,8 +63,9 @@ module LastWillFile
                #binding.pry
               flash[:notice] = task[:message]
 
-            rescue StandardError
+            rescue StandardError => e
               flash[:error] = 'Could not find authorisor'
+              puts "FAILURE to Add Executer: #{e.inspect}"
             ensure
               routing.redirect @project_route
             end
