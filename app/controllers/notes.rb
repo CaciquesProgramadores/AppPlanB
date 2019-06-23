@@ -39,25 +39,25 @@ module LastWillFile
               executor_info = Form::ExecutorEmail.call(routing.params)
 
               if executor_info.failure?
-                puts "executors 1"
+
                 flash[:error] = Form.validation_errors(executor_info)
                 routing.halt
               end
-              puts "executors 2"
+
               task_list = {
                 'add'    => { service: AddExecutor,
                               message: 'Added new authorisor to note' },
                 'remove' => { service: RemoveExecutor,
                               message: 'Removed authorisor from note' }
               }
-              puts "executors 3"
+
               task = task_list[action]
               task[:service].new(App.config).call(
                 current_account: @current_account,
                 executor: executor_info,
                 project_id:   proj_id
               )
-              puts "executors 4"
+              
               #view :notes_all,
               #locals: { current_user: @current_account, notes: notes }
                #binding.pry
