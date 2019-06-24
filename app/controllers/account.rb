@@ -27,11 +27,20 @@ module LastWillFile
             routing.params['password'] != routing.params['password_confirm']
 
           new_account = SecureMessage.decrypt(registration_token)
+
+          # this is for invited users 
+          if new_account['username'].nil?
+            new_account['username'] = routing.params['username']
+            new_account['email'] = routing.params['inh_email']
+          end
+
           CreateAccount.new(App.config).call(
             email: new_account['email'],
             username: new_account['username'],
             password: routing.params['password']
           )
+
+
           flash[:notice] = 'Account created! Please login'
           routing.redirect '/auth/login'
         rescue CreateAccount::InvalidAccount => e
