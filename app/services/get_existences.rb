@@ -20,7 +20,7 @@ module LastWillFile
       response = HTTP.auth("Bearer #{current_account.auth_token}")
                    .get("#{@config.API_URL}/existences")
 
-      existences = response.parse
+      existences = response.parse['data']
 
       existences
     end

@@ -4,9 +4,18 @@ div class="row" style="vertical-align: bottom;"
 table class="table"
   thead
     tr
+      th Note Title
       th Email
+      th Time Inactive
+      th Current Status
   tbody
-  - existences.each do |proj|
+  - existences.each do |existence|
     tr
       td
-        a #{proj}
+        #{existence.title}
+      td
+        #{existence.email}
+      td
+        #{existence.less}
+      td
+        #{existence.status}
