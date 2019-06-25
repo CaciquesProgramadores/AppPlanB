@@ -9,9 +9,13 @@ module LastWillFile
 
     def initialize(attributes)
       @title = attributes['title']
-      @email = attributes['name']
+      @name = attributes['name']
       @less = attributes['less']
       @status = attributes['status']
+
+      puts 'pe pe griino'
+      puts @less
+
     end
   end
 end
