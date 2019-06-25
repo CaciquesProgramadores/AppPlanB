@@ -16,6 +16,9 @@ module LastWillFile
           @current_account
         )
 
+        puts existences[0]['title']
+        existences.each{ |row|  puts row['email']}
+
         view :existences, locals: { existences: existences  }
       rescue GetExistences::NotFoundError => e
         flash[:error] = e.message

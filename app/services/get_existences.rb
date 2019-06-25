@@ -22,7 +22,7 @@ module LastWillFile
 
       existences = response.parse['data']
 
-      existences[0]
+      existences
     end
   end
 end
