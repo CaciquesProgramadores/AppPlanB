@@ -24,8 +24,9 @@ module LastWillFile
       puts existences
       puts existences.kind_of?(Array)
       puts existences[0]
+      puts existences[0]['title']
 
-      existences
+      existences[0]
     end
   end
 end
