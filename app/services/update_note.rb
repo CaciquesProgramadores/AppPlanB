@@ -3,7 +3,7 @@
 require 'http'
 require 'pry'
 
-# Create a new configuration file for a project
+# update an note
 class UpdateNote
   def initialize(config)
     @config = config
@@ -17,7 +17,7 @@ class UpdateNote
     config_url = "#{api_url}/notes"
     response = HTTP.auth("Bearer #{current_account.auth_token}")
                    .put(config_url, json: project_data)
-                   
+
     response.code == 201 ? response.parse : raise
   end
 end

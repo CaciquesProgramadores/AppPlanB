@@ -3,7 +3,7 @@
 require 'http'
 
 module LastWillFile
-  # Returns all notes belonging to an account
+  # Returns all existences belonging to an note belonging to an account
   class GetExistences
     # Error for cannot find existences
     class NotFoundError < StandardError

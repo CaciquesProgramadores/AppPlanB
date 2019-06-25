@@ -5,7 +5,7 @@ require 'pry'
 require 'json'
 
 module LastWillFile
-  # Returns an authenticated user, or nil
+  # Verify an regirtration on the system
   class VerifyRegistration
     class VerificationError < StandardError; end
 
@@ -15,7 +15,7 @@ module LastWillFile
 
     def call(registration_data)
       registration_token = SecureMessage.encrypt(registration_data)
-      #binding.pry
+
       registration_data['verification_url'] = \
         "#{@config.APP_URL}/auth/register/#{registration_token}"
 
@@ -23,9 +23,9 @@ module LastWillFile
         "#{@config.API_URL}/auth/register",
         json: SignedMessage.sign(registration_data)
       )
-      #binding.pry
+
       raise(VerificationError) unless response.code == 202
-      #binding.pry
+
       response.parse
     end
   end

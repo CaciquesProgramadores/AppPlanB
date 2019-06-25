@@ -2,7 +2,7 @@
 
 require 'http'
 
-# Returns all notes belonging to an account
+# Returns  an inheritor belonging to an note
 class GetInheritor
   def initialize(config)
     @config = config

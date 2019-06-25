@@ -6,7 +6,7 @@ require 'json'
 require 'pry'
 
 module LastWillFile
-  # Returns an authenticated user, or nil
+  # Invite an inheritor to join to the system
   class InviteInheritor
     class InviteInheritorError < StandardError; end
 
@@ -19,7 +19,7 @@ module LastWillFile
       #binding.pry
       req_data['verification_url'] = \
         "#{@config.APP_URL}/auth/register/#{invitation_token}"
-      
+
       id = req_data['note_id'].to_i
       #binding.pry
       response = HTTP.auth("Bearer #{current_account.auth_token}")

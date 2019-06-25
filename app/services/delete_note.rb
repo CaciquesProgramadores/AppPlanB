@@ -1,17 +1,18 @@
 # frozen_string_literal: true
+
 require 'pry'
-# Service to add collaborator to project
+# Service to delete a note
 class DeleteNote
     class NoteNotDeleted < StandardError; end
-  
+
     def initialize(config)
       @config = config
     end
-  
+
     def api_url
       @config.API_URL
     end
-  
+
     def call(current_account:, project_data:)
         config_url = "#{api_url}/notes"
 
@@ -20,4 +21,4 @@ class DeleteNote
 
       raise NoteNotDeleted unless response.code == 200
     end
-  end
+end

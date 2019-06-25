@@ -3,7 +3,7 @@
 require 'http'
 require 'pry'
 
-# Returns all notes belonging to an account
+# Returns an note belong to an account
 class GetNote
   def initialize(config)
     @config = config

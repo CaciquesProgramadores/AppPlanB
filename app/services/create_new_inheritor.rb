@@ -3,7 +3,7 @@
 require 'http'
 require 'pry'
 
-# Create a new configuration file for a project
+# Create a new inheritor
 class CreateNewInheritor
   def initialize(config)
     @config = config
@@ -18,9 +18,8 @@ class CreateNewInheritor
     response = HTTP
       .auth("Bearer #{current_account.auth_token}")
       .post(config_url, json: inheritor_data)
-    #binding.pry
 
     response.code == 201 ? response.parse : raise
-    
+
   end
 end

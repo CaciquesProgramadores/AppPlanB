@@ -32,7 +32,7 @@ module LastWillFile
               form: { client_id: @config.GH_CLIENT_ID,
                       client_secret: @config.GH_CLIENT_SECRET,
                       code: code })
-      
+
       raise UnauthorizedError unless challenge_response.status < 400
         challenge_response.parse['access_token']
     end
@@ -45,11 +45,11 @@ module LastWillFile
         "#{@config.API_URL}/auth/sso",
         json: signed_sso_info
       )
-      
+
       raise if response.code >= 400
-    
+
       account_info = response.parse['data']['attributes']
-      
+
       { account: account_info['account'],
         auth_token: account_info['auth_token'] }
     end

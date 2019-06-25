@@ -2,7 +2,7 @@
 
 require 'http'
 
-# Returns all projects belonging to an account
+# Returns  account detailss
 class GetAccountDetails
   # Error for accounts that cannot be created
   class InvalidAccount < StandardError
@@ -12,7 +12,7 @@ class GetAccountDetails
   end
 
   def initialize(config)
-    @config = config 
+    @config = config
   end
 
   def call(current_account, username)

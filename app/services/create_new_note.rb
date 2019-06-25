@@ -3,7 +3,7 @@
 require 'http'
 require 'pry'
 
-# Create a new configuration file for a project
+# Create a new note
 class CreateNewNote
   def initialize(config)
     @config = config
