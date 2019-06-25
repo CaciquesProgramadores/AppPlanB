@@ -17,7 +17,11 @@ module LastWillFile
         )
 
         puts existences[0]['title']
-        existences.each{ |row|  puts row['email']}
+        existences.each do |row|
+          puts row['email']
+          puts 'hello'
+          puts row
+        end
 
         view :existences, locals: { existences: existences  }
       rescue GetExistences::NotFoundError => e
