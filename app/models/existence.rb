@@ -15,7 +15,7 @@ module LastWillFile
 
       puts 'pe pe griino'
       puts @less
-
+      puts 'pe pe griino s2'
     end
   end
 end
