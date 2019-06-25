@@ -21,6 +21,11 @@ module LastWillFile
           puts row['email']
           puts 'hello'
           puts row
+          row.each do |r|
+            puts 'pinia'
+            puts r
+
+          end
         end
 
         view :existences, locals: { existences: existences  }
