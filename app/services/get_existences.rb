@@ -21,10 +21,6 @@ module LastWillFile
                    .get("#{@config.API_URL}/existences")
 
       existences = response.parse['data']
-      puts existences
-      puts existences.kind_of?(Array)
-      puts existences[0]
-      puts existences[0]['title']
 
       existences[0]
     end
