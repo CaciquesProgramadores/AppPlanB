@@ -27,7 +27,6 @@ module LastWillFile
           puts 'pineapple'
           puts c.name
           puts 'watermelon'
-          puts c['name']
         end
 
         view :existences, locals: { existences: costumers  }
