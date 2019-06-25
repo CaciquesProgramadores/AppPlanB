@@ -15,9 +15,12 @@ module LastWillFile
         existences = GetExistences.new(App.config).call(
           @current_account
         )
+        costumers = []
+
 
         puts existences[0]['title']
         existences.each do |row|
+          costumers.push(Existence.new(row))
           puts row['email']
           puts 'hello'
           puts row
@@ -28,7 +31,9 @@ module LastWillFile
           end
         end
 
-        view :existences, locals: { existences: existences  }
+
+
+        view :existences, locals: { existences: costumers  }
       rescue GetExistences::NotFoundError => e
         flash[:error] = e.message
         routing.redirect '/'
