@@ -17,16 +17,8 @@ module LastWillFile
         )
         costumers = []
 
-
-        puts existences[0]['title']
         existences.each do |row|
           costumers.push(Existence.new(row))
-        end
-
-        costumers.each do |c|
-          puts 'pineapple'
-          puts c.name
-          puts 'watermelon'
         end
 
         view :existences, locals: { existences: costumers  }

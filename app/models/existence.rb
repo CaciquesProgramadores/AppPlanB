@@ -12,10 +12,6 @@ module LastWillFile
       @name = attributes['name']
       @less = attributes['less']
       @status = attributes['status']
-
-      puts 'pe pe griino'
-      puts @less
-      puts 'pe pe griino s2'
     end
   end
 end
