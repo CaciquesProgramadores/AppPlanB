@@ -33,8 +33,8 @@ module LastWillFile
               routing.redirect @notes_route
             end
 
-             # POST /notes/[proj_id]/executors
-             routing.post('executors') do
+            # POST /notes/[proj_id]/executors
+            routing.post('executors') do
               action = routing.params['action']
               executor_info = Form::ExecutorEmail.call(routing.params)
 
@@ -57,12 +57,8 @@ module LastWillFile
                 executor: executor_info,
                 project_id:   proj_id
               )
-              
-              #view :notes_all,
-              #locals: { current_user: @current_account, notes: notes }
-               #binding.pry
-              flash[:notice] = task[:message]
 
+              flash[:notice] = task[:message]
             rescue StandardError => e
               flash[:error] = 'Could not find authorisor'
               puts "FAILURE to Add Executer: #{e.inspect}"
@@ -86,7 +82,6 @@ module LastWillFile
 
               flash[:notice] = 'Your inheritor was added'
             rescue StandardError => error
-              #binding.pry
               puts error.inspect
               puts error.backtrace
               flash[:error] = 'Could not add inheritor'
@@ -105,7 +100,6 @@ module LastWillFile
 
               flash[:notice] = 'Your invitation was send'
             rescue StandardError => error
-              #binding.pry
               puts error.inspect
               puts error.backtrace
               flash[:error] = 'Invitation can not be send, email already a member'
@@ -146,9 +140,7 @@ module LastWillFile
 
               flash[:notice] = 'Note deleted'
             rescue StandardError => e
-              #binding.pry
               puts "FAILURE Creating Note: #{e.inspect}"
-              #flash[:error] = 'Could not Delete Note'
             ensure
               routing.redirect @notes_route
             end
@@ -187,9 +179,8 @@ module LastWillFile
           ensure
             routing.redirect @notes_route
           end
-
         end
       end
-    end
   end
+end
 #end

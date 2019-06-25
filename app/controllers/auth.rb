@@ -104,7 +104,6 @@ module LastWillFile
 
           # POST /auth/register
           routing.post do
-            #binding.pry
             registration = Form::Registration.call(routing.params)
 
             if registration.failure?
@@ -131,11 +130,10 @@ module LastWillFile
              locals: { new_account: new_account,
                        registration_token: registration_token }
         else
-        #binding.pry
           view :register_confirm,
               locals: { new_account: new_account,
                         registration_token: registration_token }
-        end        
+        end
         end
       end
     end

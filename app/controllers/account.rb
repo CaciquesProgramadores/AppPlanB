@@ -28,7 +28,7 @@ module LastWillFile
 
           new_account = SecureMessage.decrypt(registration_token)
 
-          # this is for invited users 
+          # this is for invited users
           if new_account['username'].nil?
             new_account['username'] = routing.params['username']
             new_account['email'] = routing.params['inh_email']
