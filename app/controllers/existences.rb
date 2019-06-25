@@ -21,17 +21,14 @@ module LastWillFile
         puts existences[0]['title']
         existences.each do |row|
           costumers.push(Existence.new(row))
-          puts row['email']
-          puts 'hello'
-          puts row
-          row.each do |r|
-            puts 'pinia'
-            puts r
-
-          end
         end
 
-
+        costumers.each do |c|
+          puts 'pineapple'
+          puts c.name
+          puts 'watermelon'
+          puts c['name']
+        end
 
         view :existences, locals: { existences: costumers  }
       rescue GetExistences::NotFoundError => e
