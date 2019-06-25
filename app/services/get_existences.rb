@@ -22,6 +22,8 @@ module LastWillFile
 
       existences = response.parse['data']
       puts existences
+      puts existences.kind_of?(Array)
+      puts existences[0]
 
       existences
     end
