@@ -9,13 +9,13 @@ table class="table"
       th Time Inactive
       th Current Status
   tbody
-  - existences.each do |existence|
+  - existences.each do |exi|
     tr
       td
-        #{existence.title}
+        a #{exi.title}
         td
-          #{existence.name}
+          a #{exi.name}
           td
-            #{existence.less}
+            a #{exi.less}
             td
-              #{existence.status}
+              a #{exi.status}
