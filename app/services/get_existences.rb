@@ -22,7 +22,6 @@ module LastWillFile
 
       existences = response.parse['data']
       puts existences
-      puts existences['title']
 
       existences
     end
